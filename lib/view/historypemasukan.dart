@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+// import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:elmaliya/view/detailpemasukan.dart';
 import 'package:flutter/material.dart';
 import 'package:elmaliya/model/api.dart';
@@ -56,6 +56,7 @@ class _HistoryPemasukanState extends State<HistoryPemasukan> {
                 fontSize: 14.0)),
       ),
       body: Container(
+
         child: new FutureBuilder<List>(
           future: getData(),
           builder: (context, snapshot) {
@@ -65,7 +66,7 @@ class _HistoryPemasukanState extends State<HistoryPemasukan> {
                     list: snapshot.data,
                   )
                 : new Center(
-                    child: new CircularProgressIndicator(),
+                    child: Text("Belum ada transaksi"),
                   );
           },
         ),
@@ -114,31 +115,6 @@ class ItemList extends StatelessWidget {
                             Text('Tanggal'),
                             Text(
                               list[i]['tanggal'] ?? '',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black),
-                            )
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text('Jenis Dana'),
-                            Text(
-                              list[i]['jenis_dana'] ?? '',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black),
-                            )
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text('Nominal'),
-                            Text(
-                              formatter.format(int.parse(list[i]['nominal'])) ??
-                                  '',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black),

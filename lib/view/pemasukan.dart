@@ -96,7 +96,7 @@ class _PemasukanState extends State<Pemasukan> {
     String message = data['message'];
     _snackbar(message);
     setState(() {
-      _isLoading = false;
+      _isLoading = true;
     });
   }
 
@@ -228,6 +228,7 @@ class _PemasukanState extends State<Pemasukan> {
                 GestureDetector(
                     onTap: () {
                       check();
+                      Navigator.of(context).pop(context);
                     },
                     child: Container(
                       height: 50,

@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'package:elmaliya/view/about.dart';
 import 'package:elmaliya/view/home.dart';
-import 'package:elmaliya/view/profile.dart';
+import 'package:elmaliya/view/accountbalance.dart';
+import 'package:elmaliya/view/statistic.dart';
 import 'package:elmaliya/view/transaksi.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -75,7 +76,7 @@ class _MainMenuState extends State<MainMenu> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 4,
       child: Scaffold(
         appBar: AppBar(
           shadowColor: Colors.transparent,
@@ -112,6 +113,7 @@ class _MainMenuState extends State<MainMenu> {
           children: <Widget>[
             Home(),
             Profile(),
+            Statistic(),
             About(),
           ],
         ),
@@ -134,7 +136,14 @@ class _MainMenuState extends State<MainMenu> {
               Tab(
                 icon: Icon(Icons.attach_money),
                 child: new Text(
-                  "Account Balance",
+                  "Account",
+                  style: TextStyle(fontSize: 10.0),
+                ),
+              ),
+              Tab(
+                icon: Icon(Icons.addchart_rounded),
+                child: new Text(
+                  "Statistic",
                   style: TextStyle(fontSize: 10.0),
                 ),
               ),

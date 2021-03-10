@@ -13,22 +13,11 @@ class _AboutState extends State<About> {
       // backgroundColor: Colors.greenGrey,
       body: Stack(
         children: [
-          // Container(
-          //   height: 150,
-          //   //SAMA HALNYA DENGAN CONTAINER SEBELUMNYA, WARNANYA DI-SET DAN BORDERRADIUSNYA KALI INI BERBEDA KITA SET KE-4 SISINYA AGAR MELENGKUNG
-          //   decoration: BoxDecoration(
-          //     color: Colors.green,
-          //     borderRadius: BorderRadius.only(
-          //       bottomLeft: Radius.circular(30),
-          //       bottomRight: Radius.circular(30),
-          //     ),
-          //   ),
-          // ),
           new Center(
             child: ListView(
               children: <Widget>[
                 new SizedBox(
-                  height: 150.0,
+                  height: 120.0,
                 ),
                 new Container(
                   child: new Column(
@@ -36,10 +25,10 @@ class _AboutState extends State<About> {
                     children: <Widget>[
                       new Image.asset(
                         "gambar/logo.png",
-                        width: 150,
-                        height: 100,
+                        width: 80,
+                        height: 80,
                       ),
-                      new Padding(padding: EdgeInsets.only(bottom: 5.0)),
+                      new Padding(padding: EdgeInsets.only(bottom: 10.0)),
                       new Text(
                         "Buku Kuangan Digital",
                         style: TextStyle(
@@ -51,20 +40,26 @@ class _AboutState extends State<About> {
                         padding: EdgeInsets.all(8.0),
                       ),
                       new Text(
-                        " versi 0.2",
+                        "created by :",
                         style: TextStyle(
                             fontWeight: FontWeight.bold, color: Colors.black),
                       ),
+                      new Padding(
+                        padding: EdgeInsets.all(5.0),
+                      ),
                       new Text(
-                        "",
+                        "Muhammad Bagus Izzan Muafy 6706180060",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, color: Colors.black),
+                      ),
+                      new Padding(
+                        padding: EdgeInsets.all(3.0),
+                      ),
+                      new Text(
+                        "Dzaki Ahmad Faisal Abdurrahman 67061814115",
                         style: TextStyle(
                             fontWeight: FontWeight.bold, color: Colors.black),
                       ), //
-                      new Text(
-                        "",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.black),
-                      ),
                     ],
                   ),
                 ),

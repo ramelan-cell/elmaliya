@@ -20,10 +20,10 @@ class _HomeState extends State<Home> {
       userid = preferences.getString("id");
       username = preferences.getString("username");
       namalengkap = preferences.getString("nama");
-      jabatan = preferences.getString("jabatan");
-      nik = preferences.getString("nik");
-      foto = preferences.getString("foto");
-      urlfoto = foto;
+      // jabatan = preferences.getString("jabatan");
+      // nik = preferences.getString("nik");
+      // foto = preferences.getString("foto");
+      // urlfoto = foto;
     });
   }
 
@@ -73,7 +73,7 @@ class _HomeState extends State<Home> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 10, left: 10),
                 child: Text(
-                  'Selamat datang !  ' + username ?? '',
+                  'Selamat datang !  ' + namalengkap ?? '',
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),

@@ -64,7 +64,7 @@ class _HistoryPengeluaranState extends State<HistoryPengeluaran> {
                     list: snapshot.data,
                   )
                 : new Center(
-                    child: new CircularProgressIndicator(),
+                    child: Text("Belum ada transaksi"),
                   );
           },
         ),

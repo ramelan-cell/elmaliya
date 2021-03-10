@@ -62,43 +62,7 @@ class _ProfileState extends State<Profile> {
           children: <Widget>[
             Stack(
               children: [
-                Container(
-                    // height: 150,
-                    // //SAMA HALNYA DENGAN CONTAINER SEBELUMNYA, WARNANYA DI-SET DAN BORDERRADIUSNYA KALI INI BERBEDA KITA SET KE-4 SISINYA AGAR MELENGKUNG
-                    // decoration: BoxDecoration(
-                    //   color: Colors.green,
-                    //   borderRadius: BorderRadius.only(
-                    //     bottomLeft: Radius.circular(30),
-                    //     bottomRight: Radius.circular(30),
-                    //   ),
-                    // ),
-                    ),
-                // Container(
-                //   padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                //   child: DefaultTextStyle(
-                //     style: TextStyle(
-                //         fontSize: 12,
-                //         color: Colors.white,
-                //         fontWeight: FontWeight.bold),
-                //     child: Column(
-                //       children: <Widget>[
-                //         Center(
-                //           child: new Stack(children: <Widget>[
-                //             Container(
-                //                 width: 150.0,
-                //                 height: 150.0,
-                //                 decoration: new BoxDecoration(
-                //                     shape: BoxShape.circle,
-                //                     image: new DecorationImage(
-                //                         fit: BoxFit.cover,
-                //                         image: new AssetImage(
-                //                             'gambar/profile.png')))),
-                //           ]),
-                //         )
-                //       ],
-                //     ),
-                //   ),
-                // ),
+                Container(),
               ],
             ),
             Expanded(
@@ -173,7 +137,7 @@ class ItemList extends StatelessWidget {
                       children: [
                         Container(
                           child: Text(
-                            'Total Pemasukan bulan ini',
+                            'Total Pemasukan',
                           ),
                         ),
                         Container(
@@ -196,7 +160,7 @@ class ItemList extends StatelessWidget {
                       children: [
                         Container(
                           child: Text(
-                            'Total Pengeluaran bulan ini',
+                            'Total Pengeluaran',
                           ),
                         ),
                         Container(
@@ -218,7 +182,7 @@ class ItemList extends StatelessWidget {
                       children: [
                         Container(
                           child: Text(
-                            'Saldo bulan ini',
+                            'Saldo',
                           ),
                         ),
                         Container(
