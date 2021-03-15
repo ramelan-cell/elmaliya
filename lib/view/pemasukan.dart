@@ -1,3 +1,4 @@
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:elmaliya/view/home.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
@@ -97,6 +98,7 @@ class _PemasukanState extends State<Pemasukan> {
     _snackbar(message);
     setState(() {
       _isLoading = true;
+      Navigator.of(context).pop(context);
     });
   }
 
@@ -228,7 +230,15 @@ class _PemasukanState extends State<Pemasukan> {
                 GestureDetector(
                     onTap: () {
                       check();
-                      Navigator.of(context).pop(context);
+                      // Navigator.of(context).pop(context);
+                      Fluttertoast.showToast(
+                          msg: "This is Center Short Toast",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.CENTER,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: Colors.red,
+                          textColor: Colors.white,
+                          fontSize: 16.0);
                     },
                     child: Container(
                       height: 50,

@@ -90,6 +90,7 @@ class _PengeluaranState extends State<Pengeluaran> {
     _snackbar(message);
     setState(() {
       _isLoading = false;
+      Navigator.of(context).pop(context);
     });
   }
 

@@ -136,7 +136,7 @@ class _MainMenuState extends State<MainMenu> {
               Tab(
                 icon: Icon(Icons.attach_money),
                 child: new Text(
-                  "Account",
+                  "Balance",
                   style: TextStyle(fontSize: 10.0),
                 ),
               ),

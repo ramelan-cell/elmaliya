@@ -9,10 +9,8 @@ $query = "SELECT  * ,(select sum(nominal) from pemasukan
                       WHERE created_by = users.id and MONTH(tanggal) = MONTH(CURDATE()) AND YEAR(tanggal) = YEAR(CURDATE()) ) as total_pemasukan,
                       (select sum(nominal) from pengeluaran  
                       WHERE created_by = users.id and MONTH(tanggal) = MONTH(CURDATE()) AND YEAR(tanggal) = YEAR(CURDATE())) as total_pengeluaran,
-                      (select sum(nominal) from pemasukan  
-                      WHERE created_by = users.id and MONTH(tanggal) = MONTH(CURDATE()) AND YEAR(tanggal) = YEAR(CURDATE()) ) -
-                      (select sum(nominal) from pengeluaran  
-                      WHERE created_by = users.id and MONTH(tanggal) = MONTH(CURDATE()) AND YEAR(tanggal) = YEAR(CURDATE())) as saldo
+                      (select sum(nominal) from pemasukan WHERE created_by = users.id and MONTH(tanggal) = MONTH(CURDATE()) AND YEAR(tanggal) = YEAR(CURDATE()) ) -
+                      (select sum(nominal) from pengeluaran WHERE created_by = users.id and MONTH(tanggal) = MONTH(CURDATE()) AND YEAR(tanggal) = YEAR(CURDATE())) as saldo
           from users WHERE id ='$id'   ";
 
 $execute = mysqli_query($KONEKSI, $query);

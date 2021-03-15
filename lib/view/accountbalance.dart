@@ -196,88 +196,27 @@ class ItemList extends StatelessWidget {
                         )
                       ],
                     ),
-                    Divider(
-                      height: 30.0,
-                    ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //   children: [
-                    //     Container(
-                    //       child: Text(
-                    //         'Data Pribadi',
-                    //         style: TextStyle(fontWeight: FontWeight.bold),
+                    // Divider(
+                    //   height: 30.0,
+                    // ),
+                    // GestureDetector(
+                    //   onTap: () {
+                    //     Navigator.of(context).push(new MaterialPageRoute(
+                    //         builder: (BuildContext context) => new Password()));
+                    //   },
+                    //   child: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //     children: [
+                    //       Container(
+                    //         child: Text(
+                    //           'Ganti Password',
+                    //           style: TextStyle(fontWeight: FontWeight.bold),
+                    //         ),
                     //       ),
-                    //     ),
-                    //   ],
+                    //       Container(child: Icon(Icons.keyboard_arrow_right))
+                    //     ],
+                    //   ),
                     // ),
-                    // Divider(
-                    //   height: 30.0,
-                    // ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //   children: [
-                    //     Container(
-                    //       child: Text(
-                    //         'Nama lengkap',
-                    //       ),
-                    //     ),
-                    //     Container(
-                    //       child: Text(list[i]['nama_lengkap'] ?? '',
-                    //           style: TextStyle(fontWeight: FontWeight.bold)),
-                    //     )
-                    //   ],
-                    // ),
-                    // Divider(
-                    //   height: 30.0,
-                    // ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //   children: [
-                    //     Container(
-                    //       child: Text('No Handphone'),
-                    //     ),
-                    //     Container(
-                    //       child: Text(list[i]['no_hp'] ?? '',
-                    //           style: TextStyle(fontWeight: FontWeight.bold)),
-                    //     )
-                    //   ],
-                    // ),
-                    // Divider(
-                    //   height: 30.0,
-                    // ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //   children: [
-                    //     Container(
-                    //       child: Text('Alamat'),
-                    //     ),
-                    //     Container(
-                    //       child: Text(list[i]['alamat'] ?? '',
-                    //           style: TextStyle(fontWeight: FontWeight.bold)),
-                    //     )
-                    //   ],
-                    // ),
-                    // Divider(
-                    //   height: 30.0,
-                    // ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(new MaterialPageRoute(
-                            builder: (BuildContext context) => new Password()));
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            child: Text(
-                              'Ganti Password',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Container(child: Icon(Icons.keyboard_arrow_right))
-                        ],
-                      ),
-                    ),
                   ],
                 ),
               ),
