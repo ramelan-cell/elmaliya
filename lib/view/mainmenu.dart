@@ -2,8 +2,7 @@ import 'dart:convert';
 import 'package:elmaliya/view/about.dart';
 import 'package:elmaliya/view/home.dart';
 import 'package:elmaliya/view/accountbalance.dart';
-import 'package:elmaliya/view/statistic.dart';
-import 'package:elmaliya/view/transaksi.dart';
+import 'package:elmaliya/view/chart.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -113,7 +112,7 @@ class _MainMenuState extends State<MainMenu> {
           children: <Widget>[
             Home(),
             Profile(),
-            Statistic(),
+            BarChartStatic(),
             About(),
           ],
         ),

@@ -10,4 +10,6 @@ class BaseUrl {
   static String getHistoryPemasukan = "$url/history_pemasukan.php";
   static String inputPengeluaran = "$url/input_pengeluaran.php";
   static String getHistoryPengeluaran = "$url/history_pengeluaran.php";
+  static String getChart = "$url/getchart.php";
+  static String dataStatik = "$url/data_statik.php";
 }

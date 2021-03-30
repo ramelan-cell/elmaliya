@@ -78,13 +78,6 @@ class _DetailPengeluaranState extends State<DetailPengeluaran> {
           'Detail Data Pengeluaran',
           style: TextStyle(fontSize: 14.0, color: Colors.white),
         ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.delete),
-            color: Colors.white,
-            onPressed: () => deleteConfirm(),
-          )
-        ],
       ),
       body: Container(
         padding: EdgeInsets.all(10.0),

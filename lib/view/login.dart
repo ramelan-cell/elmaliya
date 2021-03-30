@@ -259,6 +259,7 @@ class _LoginState extends State<Login> {
                                             bottom: BorderSide(
                                                 color: Colors.green[200]))),
                                     child: TextFormField(
+                                      key: Key("addUsername"),
                                       validator: (e) {
                                         if (e.isEmpty) {
                                           return "Please insert username";
@@ -278,6 +279,7 @@ class _LoginState extends State<Login> {
                                             bottom: BorderSide(
                                                 color: Colors.green[200]))),
                                     child: TextFormField(
+                                      key: Key("addPassword"),
                                       obscureText: _secureText,
                                       validator: (e) {
                                         if (e.isEmpty) {
@@ -303,6 +305,7 @@ class _LoginState extends State<Login> {
                               ),
                             ),
                             GestureDetector(
+                                key: Key("loginButton"),
                                 onTap: () {
                                   check();
                                 },

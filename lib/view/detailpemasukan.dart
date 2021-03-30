@@ -78,13 +78,6 @@ class _DetailPemasukanState extends State<DetailPemasukan> {
           'Detail Data Pemasukan',
           style: TextStyle(fontSize: 14.0, color: Colors.white),
         ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.edit),
-            color: Colors.white,
-            onPressed: () {},
-          )
-        ],
       ),
       body: Container(
         padding: EdgeInsets.all(10.0),
