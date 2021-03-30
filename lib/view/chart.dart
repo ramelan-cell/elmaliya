@@ -273,6 +273,8 @@ class BarChartStaticState extends State<BarChartStatic> {
                               return '1jt';
                             } else if (value == 15) {
                               return '1,5jt';
+                            } else if (value == 20) {
+                              return '2jt';
                             } else if (value == 25) {
                               return '2,5jt';
                             } else if (value == 30) {
