@@ -266,7 +266,7 @@ class BarChartStaticState extends State<BarChartStatic> {
                           reservedSize: 14,
                           getTitles: (value) {
                             if (value == 0) {
-                              return '100rb';
+                              return '0';
                             } else if (value == 5) {
                               return '500rb';
                             } else if (value == 10) {
