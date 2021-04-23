@@ -36,6 +36,30 @@ class _AboutState extends State<About> {
                             fontWeight: FontWeight.bold,
                             color: Colors.black),
                       ),
+                      new Padding(padding: EdgeInsets.only(bottom: 20.0)),
+                      new Text(
+                        "created by",
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      ),
+                      new Padding(padding: EdgeInsets.only(bottom: 10.0)),
+                      new Text(
+                        "Muhammad Bagus Izzan Muafy",
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.black),
+                      ),
+                      new Padding(padding: EdgeInsets.only(bottom: 10.0)),
+                      new Text(
+                        "Dzaki Ahmad Faisal Abdurrahman",
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.black),
+                      ),
                       //
                     ],
                   ),

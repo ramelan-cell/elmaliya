@@ -45,52 +45,52 @@ class BarChartStaticState extends State<BarChartStatic> {
       setState(() {
         final barGroup1 = makeGroupData(
             0,
-            double.parse(data[0]['in_1']) / 100000,
-            double.parse(data[0]['out_1']) / 100000);
+            double.parse(data[0]['in_1']) / 1000000,
+            double.parse(data[0]['out_1']) / 1000000);
         final barGroup2 = makeGroupData(
             1,
-            double.parse(data[0]['in_2']) / 100000,
-            double.parse(data[0]['out_2']) / 100000);
+            double.parse(data[0]['in_2']) / 1000000,
+            double.parse(data[0]['out_2']) / 1000000);
         final barGroup3 = makeGroupData(
             2,
-            double.parse(data[0]['in_3']) / 100000,
-            double.parse(data[0]['out_3']) / 100000);
+            double.parse(data[0]['in_3']) / 1000000,
+            double.parse(data[0]['out_3']) / 1000000);
         final barGroup4 = makeGroupData(
             3,
-            double.parse(data[0]['in_4']) / 100000,
-            double.parse(data[0]['out_4']) / 100000);
+            double.parse(data[0]['in_4']) / 1000000,
+            double.parse(data[0]['out_4']) / 1000000);
         final barGroup5 = makeGroupData(
             4,
-            double.parse(data[0]['in_5']) / 100000,
-            double.parse(data[0]['out_5']) / 100000);
+            double.parse(data[0]['in_5']) / 1000000,
+            double.parse(data[0]['out_5']) / 1000000);
         final barGroup6 = makeGroupData(
             5,
-            double.parse(data[0]['in_6']) / 100000,
-            double.parse(data[0]['out_6']) / 100000);
+            double.parse(data[0]['in_6']) / 1000000,
+            double.parse(data[0]['out_6']) / 1000000);
         final barGroup7 = makeGroupData(
             6,
-            double.parse(data[0]['in_7']) / 100000,
-            double.parse(data[0]['out_7']) / 100000);
+            double.parse(data[0]['in_7']) / 1000000,
+            double.parse(data[0]['out_7']) / 1000000);
         final barGroup8 = makeGroupData(
             7,
-            double.parse(data[0]['in_8']) / 100000,
-            double.parse(data[0]['out_8']) / 100000);
+            double.parse(data[0]['in_8']) / 1000000,
+            double.parse(data[0]['out_8']) / 1000000);
         final barGroup9 = makeGroupData(
             8,
-            double.parse(data[0]['in_9']) / 100000,
-            double.parse(data[0]['out_9']) / 100000);
+            double.parse(data[0]['in_9']) / 1000000,
+            double.parse(data[0]['out_9']) / 1000000);
         final barGroup10 = makeGroupData(
             9,
-            double.parse(data[0]['in_10']) / 100000,
-            double.parse(data[0]['out_10']) / 100000);
+            double.parse(data[0]['in_10']) / 1000000,
+            double.parse(data[0]['out_10']) / 1000000);
         final barGroup11 = makeGroupData(
             10,
-            double.parse(data[0]['in_11']) / 100000,
-            double.parse(data[0]['out_11']) / 100000);
+            double.parse(data[0]['in_11']) / 1000000,
+            double.parse(data[0]['out_11']) / 1000000);
         final barGroup12 = makeGroupData(
             11,
-            double.parse(data[0]['in_12']) / 100000,
-            double.parse(data[0]['out_12']) / 100000);
+            double.parse(data[0]['in_12']) / 1000000,
+            double.parse(data[0]['out_12']) / 1000000);
 
         final items = [
           barGroup1,
@@ -267,36 +267,28 @@ class BarChartStaticState extends State<BarChartStatic> {
                           getTitles: (value) {
                             if (value == 0) {
                               return '0';
-                            } else if (value == 5) {
-                              return '500rb';
                             } else if (value == 10) {
                               return '1jt';
-                            } else if (value == 15) {
-                              return '1,5jt';
                             } else if (value == 20) {
                               return '2jt';
-                            } else if (value == 25) {
-                              return '2,5jt';
                             } else if (value == 30) {
                               return '3jt';
-                            } else if (value == 35) {
-                              return '3,5jt';
                             } else if (value == 40) {
                               return '4jt';
-                            } else if (value == 45) {
-                              return '4,5jt';
                             } else if (value == 50) {
                               return '5jt';
-                            } else if (value == 55) {
-                              return '5,5jt';
                             } else if (value == 60) {
                               return '6jt';
-                            } else if (value == 65) {
-                              return '6,5jt';
                             } else if (value == 70) {
                               return '7jt';
-                            } else if (value == 75) {
-                              return '7,5jt';
+                            } else if (value == 80) {
+                              return '8jt';
+                            } else if (value == 90) {
+                              return '9jt';
+                            } else if (value == 100) {
+                              return '10jt';
+                            } else if (value == 110) {
+                              return '11jt';
                             }
                           },
                         ),
