@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:elmaliya/view/login.dart';
 import 'package:flutter/material.dart';
 import 'package:elmaliya/main.dart';
 import 'package:elmaliya/model/api.dart';
@@ -39,33 +38,6 @@ class _DetailPemasukanState extends State<DetailPemasukan> {
       super.dispose();
     }
   }
-
-  // Alert dialog Confirm
-  // void deleteConfirm() {
-  //   AlertDialog alertDialog = new AlertDialog(
-  //     content: new Text(
-  //         "Hapus riwayat pencatatan ${widget.list[widget.index]['kategori']}?"),
-  //     actions: <Widget>[
-  //       new RaisedButton(
-  //           child: new Text(
-  //             "HAPUS",
-  //             style: TextStyle(color: Colors.white),
-  //           ),
-  //           color: Colors.red,
-  //           onPressed: () {}),
-  //       new RaisedButton(
-  //           child: new Text(
-  //             "BATAL",
-  //             style: TextStyle(color: Colors.white),
-  //           ),
-  //           color: Colors.lightGreen,
-  //           onPressed: () {
-  //             Navigator.pop(context);
-  //           })
-  //     ],
-  //   );
-  //   showDialog(context: context, child: alertDialog);
-  // }
 
   @override
   Widget build(BuildContext context) {

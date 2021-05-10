@@ -1,13 +1,10 @@
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:elmaliya/view/home.dart';
 import 'package:flutter/material.dart';
-import 'dart:io';
 import 'dart:convert';
-import 'package:async/async.dart';
 import 'package:http/http.dart' as http;
 import 'package:elmaliya/model/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:path/path.dart' as path;
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:intl/intl.dart';
 
@@ -24,12 +21,14 @@ class _PemasukanState extends State<Pemasukan> {
 
   void _snackbar(String str) {
     if (str.isEmpty) return;
-    _scaffoldState.currentState.showSnackBar(new SnackBar(
-      backgroundColor: Colors.green,
-      content: new Text(str,
-          style: new TextStyle(fontSize: 15.0, color: Colors.white)),
-      duration: new Duration(seconds: 5),
-    ));
+    Fluttertoast.showToast(
+        msg: str,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red[600],
+        textColor: Colors.white,
+        fontSize: 16.0);
   }
 
   bool _isLoading = false;
@@ -130,7 +129,7 @@ class _PemasukanState extends State<Pemasukan> {
                 DateTimePickerFormField(
                   style: TextStyle(fontSize: 13.0, color: Colors.black),
                   inputType: InputType.date,
-                  format: DateFormat("yyyy-MM-dd"),
+                  format: DateFormat("dd-MM-yyyy"),
                   initialDate: DateTime.now(),
                   editable: false,
                   decoration: InputDecoration(
@@ -231,14 +230,14 @@ class _PemasukanState extends State<Pemasukan> {
                     onTap: () {
                       check();
                       // Navigator.of(context).pop(context);
-                      Fluttertoast.showToast(
-                          msg: "This is Center Short Toast",
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.CENTER,
-                          timeInSecForIosWeb: 1,
-                          backgroundColor: Colors.red,
-                          textColor: Colors.white,
-                          fontSize: 16.0);
+                      // Fluttertoast.showToast(
+                      //     msg: "This is Center Short Toast",
+                      //     toastLength: Toast.LENGTH_SHORT,
+                      //     gravity: ToastGravity.CENTER,
+                      //     timeInSecForIosWeb: 1,
+                      //     backgroundColor: Colors.green[800],
+                      //     textColor: Colors.white,
+                      //     fontSize: 16.0);
                     },
                     child: Container(
                       height: 50,
@@ -253,7 +252,7 @@ class _PemasukanState extends State<Pemasukan> {
                                     AlwaysStoppedAnimation<Color>(Colors.white),
                               )
                             : Text(
-                                "Proses",
+                                "Simpan",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 15,

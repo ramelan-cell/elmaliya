@@ -40,33 +40,6 @@ class _DetailPengeluaranState extends State<DetailPengeluaran> {
     }
   }
 
-  // Alert dialog Confirm
-  void deleteConfirm() {
-    AlertDialog alertDialog = new AlertDialog(
-      content: new Text(
-          "Hapus riwayat pencatatan ${widget.list[widget.index]['kategori']}?"),
-      actions: <Widget>[
-        new RaisedButton(
-            child: new Text(
-              "HAPUS",
-              style: TextStyle(color: Colors.white),
-            ),
-            color: Colors.red,
-            onPressed: () {}),
-        new RaisedButton(
-            child: new Text(
-              "BATAL",
-              style: TextStyle(color: Colors.white),
-            ),
-            color: Colors.lightGreen,
-            onPressed: () {
-              Navigator.pop(context);
-            })
-      ],
-    );
-    showDialog(context: context, child: alertDialog);
-  }
-
   @override
   Widget build(BuildContext context) {
     int nominal = int.parse(widget.list[widget.index]['nominal']);

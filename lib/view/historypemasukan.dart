@@ -1,5 +1,4 @@
 import 'dart:convert';
-// import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:elmaliya/view/detailpemasukan.dart';
 import 'package:flutter/material.dart';
 import 'package:elmaliya/model/api.dart';
@@ -56,7 +55,6 @@ class _HistoryPemasukanState extends State<HistoryPemasukan> {
                 fontSize: 14.0)),
       ),
       body: Container(
-
         child: new FutureBuilder<List>(
           future: getData(),
           builder: (context, snapshot) {
@@ -101,10 +99,7 @@ class ItemList extends StatelessWidget {
                 child: DefaultTextStyle(
                   style: TextStyle(fontWeight: FontWeight.bold),
                   child: new ListTile(
-                    title: new Text(
-                      list[i]['kategori'] ?? '',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
+                    title: new Text(list[i]['jenis_dana'] ?? ''),
                     leading: new Icon(Icons.widgets),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,6 +110,19 @@ class ItemList extends StatelessWidget {
                             Text('Tanggal'),
                             Text(
                               list[i]['tanggal'] ?? '',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black),
+                            )
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Nominal'),
+                            Text(
+                              formatter.format(int.parse(list[i]['nominal'])) ??
+                                  '',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black),

@@ -2,25 +2,27 @@ import 'package:elmaliya/view/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:elmaliya/view/login.dart';
 
 void main() {
   testWidgets("login test widget", (WidgetTester tester) async {
-    //identifikasi widget yg dibutuhkan
-    final addUname = find.byKey(ValueKey("addUsername"));
-    final addPassword = find.byKey(ValueKey("addPassword"));
-    final clickLogin = find.byKey(ValueKey("loginButton"));
-
     //eksekusi testing
-    await tester.pumpWidget(MaterialApp(home: Login()));
+    Login loginScreen = new Login();
+    var app = new MediaQuery(
+        data: new MediaQueryData(), child: new MaterialApp(home: loginScreen));
+    await tester.pumpWidget(app);
 
-    // await tester.enterText(addUname, "admin");
-    await tester.enterText(addPassword, "1");
-    await tester.tap(clickLogin);
-    await tester.pump();
+    Finder uname = find.byKey(ValueKey("addUsername"));
+    Finder pw = find.byKey(ValueKey("addPassword"));
 
-    //cek output
-    // expect(find.text("admin"), findsOneWidget);
-    expect(find.text("1"), findsOneWidget);
+    print("Username Widget");
+    print(uname.toString());
+
+    print("Getting form widget");
+    Finder formWidgetFinder = find.byType(Form);
+    print(formWidgetFinder.toString());
+    Form formWidget = tester.widget(formWidgetFinder) as Form;
+    GlobalKey<FormState> formKey = formWidget.key as GlobalKey<FormState>;
+    //expect((tester.widget(loginButton) as PrimaryButton).enabled, isFalse);
+    expect(formKey.currentState.validate(), isFalse);
   });
 }
