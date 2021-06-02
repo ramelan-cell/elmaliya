@@ -32,7 +32,7 @@ class _PemasukanState extends State<Pemasukan> {
   }
 
   bool _isLoading = false;
-  DateTime tanggal;
+  DateTime tanggal = DateTime.now();
   String kategori;
   String jenisdana;
   String nominal;
@@ -130,7 +130,7 @@ class _PemasukanState extends State<Pemasukan> {
                   style: TextStyle(fontSize: 13.0, color: Colors.black),
                   inputType: InputType.date,
                   format: DateFormat("dd-MM-yyyy"),
-                  initialDate: DateTime.now(),
+                  initialValue: tanggal,
                   editable: false,
                   decoration: InputDecoration(
                     labelText: 'Tanggal',
@@ -229,15 +229,6 @@ class _PemasukanState extends State<Pemasukan> {
                 GestureDetector(
                     onTap: () {
                       check();
-                      // Navigator.of(context).pop(context);
-                      // Fluttertoast.showToast(
-                      //     msg: "This is Center Short Toast",
-                      //     toastLength: Toast.LENGTH_SHORT,
-                      //     gravity: ToastGravity.CENTER,
-                      //     timeInSecForIosWeb: 1,
-                      //     backgroundColor: Colors.green[800],
-                      //     textColor: Colors.white,
-                      //     fontSize: 16.0);
                     },
                     child: Container(
                       height: 50,

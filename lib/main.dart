@@ -14,7 +14,7 @@ void main() {
 
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    title: "Buku Kuangan Digital",
+    title: "Elmaliya",
     home: Launcher(),
     theme: ThemeData(primaryColor: Colors.green[500]),
     routes: <String, WidgetBuilder>{

@@ -1,17 +1,15 @@
 import 'package:carousel_slider/carousel_options.dart';
-import 'package:elmaliya/model/api.dart';
 import 'package:elmaliya/view/pilihmenu.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
 }
 
-String userid, username, namalengkap = "", jabatan, nik, foto, urlfoto;
+String userid, username, namalengkap = "", saldo;
 
 class _HomeState extends State<Home> {
   getPref() async {
@@ -20,10 +18,7 @@ class _HomeState extends State<Home> {
       userid = preferences.getString("id");
       username = preferences.getString("username");
       namalengkap = preferences.getString("nama");
-      // jabatan = preferences.getString("jabatan");
-      // nik = preferences.getString("nik");
-      // foto = preferences.getString("foto");
-      // urlfoto = foto;
+      saldo = preferences.getString("saldo");
     });
   }
 
