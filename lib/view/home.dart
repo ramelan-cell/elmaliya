@@ -84,7 +84,7 @@ class _HomeState extends State<Home> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 10, left: 10),
                 child: Text(
-                  'Selamat datang !  ' + namalengkap ?? '',
+                  'Selamat datang !' + namalengkap ?? '',
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),
