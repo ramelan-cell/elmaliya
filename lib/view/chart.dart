@@ -33,7 +33,7 @@ class BarChartStaticState extends State<BarChartStatic> {
     }
   }
 
-  getData() async {
+  Future<String> getData() async {
     if (userid != null) {
       final response = await http.post(BaseUrl.dataStatik, body: {
         "user_id": userid,

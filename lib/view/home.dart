@@ -1,15 +1,22 @@
+import 'dart:convert';
+
 import 'package:carousel_slider/carousel_options.dart';
+import 'package:elmaliya/model/api.dart';
+import 'package:elmaliya/view/login.dart';
 import 'package:elmaliya/view/pilihmenu.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:http/http.dart' as http;
 
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
 }
 
-String userid, username, namalengkap = "", saldo;
+String userid, username, namalengkap = "";
+double saldoakhir = 0;
 
 class _HomeState extends State<Home> {
   getPref() async {
@@ -18,8 +25,17 @@ class _HomeState extends State<Home> {
       userid = preferences.getString("id");
       username = preferences.getString("username");
       namalengkap = preferences.getString("nama");
-      saldo = preferences.getString("saldo");
+      getSaldo(userid);
     });
+  }
+
+  getSaldo(String userid) async {
+    final response = await http.post(BaseUrl.getSaldoakhir, body: {
+      "user_id": userid,
+    });
+
+    final data = jsonDecode(response.body);
+    saldoakhir = double.parse(data['saldo_akhir']);
   }
 
   @override
@@ -73,16 +89,73 @@ class _HomeState extends State<Home> {
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 10, left: 10),
-                child: Row(
-                  children: [],
-                ),
-              ),
               SizedBox(
                 height: 2,
               ),
               autoPlayImage,
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Container(
+                  padding: EdgeInsets.all(16.0),
+                  color: Colors.green,
+                  child: Center(
+                    child: Column(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Saldo akhir anda',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.money,
+                                  color: Colors.orange,
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  NumberFormat.currency(
+                                              locale: 'id', symbol: 'Rp. ')
+                                          .format(saldoakhir ?? 0) ??
+                                      '',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(
+                                  width: 15,
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                        new MaterialPageRoute(
+                                            builder: (BuildContext context) =>
+                                                new Login()));
+                                  },
+                                  child: Icon(
+                                    Icons.refresh,
+                                    color: Colors.white,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
               MenuUtama(),
             ],
           ),

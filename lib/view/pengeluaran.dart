@@ -88,13 +88,15 @@ class _PengeluaranState extends State<Pengeluaran> {
 
     final data = jsonDecode(response.body);
     print(data);
-
+    String value = data['value'].toString();
     String message = data['message'];
     _snackbar(message);
-    setState(() {
-      _isLoading = false;
-      Navigator.of(context).pop(context);
-    });
+    _isLoading = false;
+    if (value == '1') {
+      setState(() {
+        Navigator.of(context).pop(context);
+      });
+    }
   }
 
   @override

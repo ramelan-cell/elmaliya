@@ -1,5 +1,5 @@
 class BaseUrl {
-  static String url = "http://192.168.1.87/api/bukukas";
+  static String url = "http://192.168.43.82/api/bukukeuangan";
 
   static String slider = "$url/slider";
   static String login = "$url/login.php";
@@ -12,4 +12,6 @@ class BaseUrl {
   static String getHistoryPengeluaran = "$url/history_pengeluaran.php";
   static String getChart = "$url/getchart.php";
   static String dataStatik = "$url/data_statik.php";
+  static String downloadpdf = "$url/import_pdf.php?";
+  static String getSaldoakhir = "$url/saldo_akhir.php";
 }

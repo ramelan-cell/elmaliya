@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -92,6 +93,18 @@ class _ProfileState extends State<Profile> {
             )
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.green,
+        child: Icon(Icons.picture_as_pdf),
+        onPressed: () async {
+          var url = BaseUrl.downloadpdf + 'user_id=' + userid;
+          if (await canLaunch(url) != null) {
+            await launch(url);
+          } else {
+            throw 'Could not launch $url';
+          }
+        },
       ),
     );
   }

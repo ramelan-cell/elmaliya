@@ -2,15 +2,9 @@ import 'package:elmaliya/view/login.dart';
 import 'package:flutter/material.dart';
 import 'package:elmaliya/constant/constant.dart';
 import 'package:elmaliya/launcher.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-
-  // OneSignal.shared
-  //     .init("XXXXXXXXX", iOSSettings: null);
-  // OneSignal.shared
-  //     .setInFocusDisplayType(OSNotificationDisplayType.notification);
 
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,

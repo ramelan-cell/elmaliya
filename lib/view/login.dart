@@ -61,7 +61,6 @@ class _LoginState extends State<Login> {
     final response = await http.post(BaseUrl.login,
         body: {"username": username, "password": password});
     final data = jsonDecode(response.body);
-    print(data);
     int value = data['value'];
     String pesan = data['message'];
     String usernameAPI = data['user'];
@@ -70,12 +69,13 @@ class _LoginState extends State<Login> {
     String nohp = data['no_hp'];
     String alamat = data['alamat'];
     String foto = data['foto'];
-
+    double saldoakhir = double.parse(data['saldo_akhir']);
     if (value == 1) {
       if (this.mounted) {
         setState(() {
           _loginStatus = LoginStatus.signIn;
-          savePref(value, usernameAPI, namaAPI, id, nohp, foto, alamat);
+          savePref(
+              value, usernameAPI, namaAPI, id, nohp, foto, alamat, saldoakhir);
           // getFCMToken(alamat);
         });
       }
@@ -91,7 +91,7 @@ class _LoginState extends State<Login> {
   }
 
   savePref(int value, String username, String nama, String id, String nohp,
-      String foto, String alamat) async {
+      String foto, String alamat, double saldoakhir) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     if (this.mounted) {
       setState(() {
@@ -102,6 +102,7 @@ class _LoginState extends State<Login> {
         preferences.setString("nohp", nohp);
         preferences.setString("alamat", alamat);
         preferences.setString("foto", foto);
+        preferences.setDouble("saldoakhir", saldoakhir);
         preferences.commit();
       });
     }
@@ -130,25 +131,12 @@ class _LoginState extends State<Login> {
     }
   }
 
-  // void getFCMToken(alamat) async {
-  //   var status = await OneSignal.shared.getPermissionSubscriptionState();
-  //   String fcmtoken = status.subscriptionStatus.userId;
-
-  //   final response = await http
-  //       .post(BaseUrl.updatefcmtoken, body: {"fcmtoken": fcmtoken, "alamat": alamat});
-  //   final data = jsonDecode(response.body);
-  // }
-
   @override
   void initState() {
     // TODO: implement initState
     if (this.mounted) {
       super.initState();
       getPref();
-      OneSignal.shared
-          .setNotificationOpenedHandler((OSNotificationOpenedResult result) {
-        print("notifikasion di tap");
-      });
     }
   }
 
