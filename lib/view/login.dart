@@ -63,14 +63,16 @@ class _LoginState extends State<Login> {
     final data = jsonDecode(response.body);
     int value = data['value'];
     String pesan = data['message'];
-    String usernameAPI = data['user'];
-    String namaAPI = data['nama'];
-    String id = data['user_id'];
-    String nohp = data['no_hp'];
-    String alamat = data['alamat'];
-    String foto = data['foto'];
-    double saldoakhir = double.parse(data['saldo_akhir']);
+
     if (value == 1) {
+      String usernameAPI = data['user'];
+      String namaAPI = data['nama'];
+      String id = data['user_id'];
+      String nohp = data['no_hp'];
+      String alamat = data['alamat'];
+      String foto = data['foto'];
+      double saldoakhir = double.parse(data['saldo_akhir']);
+      print(saldoakhir);
       if (this.mounted) {
         setState(() {
           _loginStatus = LoginStatus.signIn;

@@ -25,17 +25,23 @@ class _HomeState extends State<Home> {
       userid = preferences.getString("id");
       username = preferences.getString("username");
       namalengkap = preferences.getString("nama");
-      getSaldo(userid);
+      saldoakhir = preferences.getDouble("saldoakhir");
     });
   }
 
-  getSaldo(String userid) async {
-    final response = await http.post(BaseUrl.getSaldoakhir, body: {
-      "user_id": userid,
-    });
+  getSaldo() async {
+    if (userid != null) {
+      final response = await http.post(BaseUrl.getSaldoakhir, body: {
+        "user_id": userid,
+      });
 
-    final data = jsonDecode(response.body);
-    saldoakhir = double.parse(data['saldo_akhir']);
+      final data = jsonDecode(response.body);
+      setState(() {
+        saldoakhir = double.parse(data['saldo_akhir']);
+      });
+    } else {
+      saldoakhir = 0;
+    }
   }
 
   @override
@@ -43,6 +49,7 @@ class _HomeState extends State<Home> {
     // TODO: implement initState
     super.initState();
     getPref();
+    getSaldo();
   }
 
   static final List<String> imgSlider = ['1.jpg', '2.jpg', '3.jpg', '4.jpg'];
