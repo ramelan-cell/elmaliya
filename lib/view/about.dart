@@ -1,3 +1,4 @@
+import 'package:elmaliya/view/password.dart';
 import 'package:flutter/material.dart';
 
 class About extends StatefulWidget {
@@ -51,7 +52,21 @@ class _AboutState extends State<About> {
                             fontWeight: FontWeight.normal,
                             color: Colors.black),
                       ),
-
+                      new Padding(padding: EdgeInsets.only(bottom: 10.0)),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(new MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  new Password()));
+                        },
+                        child: new Text(
+                          "Ubah password anda ?",
+                          style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.normal,
+                              color: Colors.orange),
+                        ),
+                      ),
                       //
                     ],
                   ),

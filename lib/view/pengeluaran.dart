@@ -38,7 +38,9 @@ class _PengeluaranState extends State<Pengeluaran> {
   DateTime tanggal;
   String tipepengeluaran;
   String nominal;
+  String keterangan;
   TextEditingController txtnominal = TextEditingController();
+  TextEditingController txtketerangan = TextEditingController();
   TextEditingController txttipepengeluaran = TextEditingController();
 
   getPref() async {
@@ -72,6 +74,11 @@ class _PengeluaranState extends State<Pengeluaran> {
         setState(() {
           _isLoading = false;
         });
+      } else if (keterangan == null) {
+        _snackbar('Kolom keterangan wajib disi');
+        setState(() {
+          _isLoading = false;
+        });
       } else {
         prosessimpan();
       }
@@ -83,7 +90,8 @@ class _PengeluaranState extends State<Pengeluaran> {
       "user_id": userid,
       "tanggal": tanggal.toString(),
       "tipe_pengeluaran": tipepengeluaran,
-      "nominal": nominal
+      "nominal": nominal,
+      "keterangan": keterangan
     });
 
     final data = jsonDecode(response.body);
@@ -176,6 +184,15 @@ class _PengeluaranState extends State<Pengeluaran> {
                   onSaved: (e) => nominal = e,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(labelText: 'Masukan nominal'),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                TextFormField(
+                  controller: txtketerangan,
+                  onSaved: (e) => keterangan = e,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(labelText: 'Masukan keterangan'),
                 ),
                 SizedBox(
                   height: 10,

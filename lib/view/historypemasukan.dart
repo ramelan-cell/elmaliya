@@ -1,9 +1,11 @@
 import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:elmaliya/view/detailpemasukan.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:elmaliya/model/api.dart';
 import 'package:http/http.dart' as http;
-import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HistoryPemasukan extends StatefulWidget {
@@ -11,133 +13,288 @@ class HistoryPemasukan extends StatefulWidget {
   _HistoryPemasukanState createState() => _HistoryPemasukanState();
 }
 
-String userid;
+String idUsers;
 
 class _HistoryPemasukanState extends State<HistoryPemasukan> {
+  static int page;
+  ScrollController _sc = new ScrollController();
+  bool isLoading = false;
+  List users = new List();
+  final dio = new Dio();
+
   getPref() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    if (this.mounted) {
-      setState(() {
-        userid = preferences.getString("id");
-      });
-    }
-  }
+    idUsers = preferences.getString("id");
+    page = 0;
+    this._getMoreData(page, idUsers);
 
-  Future<List> getData() async {
-    if (userid == null) {
-      print("Tidak ada Riwayat");
-    } else {
-      print(userid);
-      final response = await http
-          .post(BaseUrl.getHistoryPemasukan, body: {"user_id": userid});
-      return jsonDecode(response.body);
-    }
+    _sc.addListener(() {
+      if (_sc.position.pixels == _sc.position.maxScrollExtent) {
+        _getMoreData(page, idUsers);
+      }
+    });
+
+    searchController.addListener(() {
+      if (this.mounted) {
+        setState(() {
+          filter = searchController.text;
+        });
+      }
+    });
   }
 
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
-    getPref();
-    getData();
+    if (this.mounted) {
+      setState(() {
+        super.initState();
+        getPref();
+      });
+    }
   }
+
+  @override
+  void dispose() {
+    if (this.mounted) {
+      super.dispose();
+      _sc.dispose();
+      searchController.dispose();
+    }
+  }
+
+  TextEditingController searchController = new TextEditingController();
+  String filter;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // backgroundColor: Colors.black,
       appBar: AppBar(
-        elevation: 2.0,
-        backgroundColor: Colors.green,
-        title: Text('History Pemasukan',
-            style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 14.0)),
+        shadowColor: Colors.transparent,
+        title: const Text("History Pemasukan",
+            style: TextStyle(fontSize: 16.0, color: Colors.black)),
       ),
-      body: Container(
-        child: new FutureBuilder<List>(
-          future: getData(),
-          builder: (context, snapshot) {
-            if (snapshot.hasError) print(snapshot.error);
-            return snapshot.hasData
-                ? new ItemList(
-                    list: snapshot.data,
-                  )
-                : new Center(
-                    child: Text("Belum ada transaksi"),
-                  );
-          },
-        ),
-      ),
-    );
-  }
-}
-
-class ItemList extends StatelessWidget {
-  final List list;
-  ItemList({this.list});
-  final formatter = new NumberFormat("#,###,###,###,###");
-
-  @override
-  Widget build(BuildContext context) {
-    return new ListView.builder(
-      itemCount: list == null ? 0 : list.length,
-      itemBuilder: (context, i) {
-        print(list);
-
-        return new Container(
+      body: Stack(
+        children: [
+          Container(
+            height: 70,
+            decoration: BoxDecoration(
+              color: Colors.green,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(20),
+                bottomRight: Radius.circular(20),
+              ),
+            ),
+          ),
+          Container(
             child: Column(
-          children: [
-            new GestureDetector(
-              onTap: () => Navigator.of(context).push(new MaterialPageRoute(
-                  builder: (BuildContext context) => DetailPemasukan(
-                        list: list,
-                        index: i,
-                      ))),
-              child: new Card(
-                // color: Colors.amber[700],
-                child: DefaultTextStyle(
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                  child: new ListTile(
-                    title: new Text(list[i]['jenis_dana'] ?? ''),
-                    leading: new Icon(Icons.widgets),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text('Tanggal'),
-                            Text(
-                              list[i]['tanggal'] ?? '',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black),
-                            )
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text('Nominal'),
-                            Text(
-                              formatter.format(int.parse(list[i]['nominal'])) ??
-                                  '',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black),
-                            )
-                          ],
-                        ),
-                      ],
+              children: [
+                new Padding(
+                  padding: new EdgeInsets.all(8.0),
+                  child: new TextField(
+                    style: TextStyle(fontSize: 13.0, color: Colors.black),
+                    controller: searchController,
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.search),
+                      hintStyle: TextStyle(color: Colors.black),
+                      hintText: 'Pencarian berdasarkan jenis dana ...',
+                      contentPadding:
+                          EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15.0)),
                     ),
                   ),
                 ),
-              ),
+                new Expanded(
+                  child: _buildList(),
+                ),
+              ],
             ),
-          ],
-        ));
+          ),
+        ],
+      ),
+      resizeToAvoidBottomInset: false,
+    );
+  }
+
+  Widget _buildList() {
+    final formatter = new NumberFormat("#,###,###,###,###");
+    return ListView.builder(
+      itemCount: users.length + 1, // Add one more item for progress indicator
+      padding: EdgeInsets.symmetric(vertical: 8.0),
+      itemBuilder: (BuildContext context, int index) {
+        if (index == users.length) {
+          return _buildProgressIndicator();
+        } else {
+          return filter == null || filter == ""
+              ? GestureDetector(
+                  onTap: () => Navigator.of(context).push(new MaterialPageRoute(
+                      builder: (BuildContext context) => new DetailPemasukan(
+                            list: users,
+                            index: index,
+                          ))),
+                  child: Card(
+                    child: DefaultTextStyle(
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                      child: new ListTile(
+                        title: new Text(users[index]['jenis_dana'] ?? ''),
+                        leading: new Icon(Icons.widgets),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('Tanggal'),
+                                Text(
+                                  users[index]['tanggal'] ?? '',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black),
+                                )
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('Nominal'),
+                                Text(
+                                  formatter.format(
+                                          int.parse(users[index]['nominal'])) ??
+                                      '',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black),
+                                )
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  users[index]['keterangan'],
+                                  style: TextStyle(color: Colors.black) ?? '',
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              : users[index]['jenis_dana']
+                      .toLowerCase()
+                      .contains(filter.toLowerCase())
+                  ? GestureDetector(
+                      onTap: () => Navigator.of(context).push(
+                          new MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  new DetailPemasukan(
+                                    list: users,
+                                    index: index,
+                                  ))),
+                      child: Card(
+                        child: DefaultTextStyle(
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                          child: new ListTile(
+                            title: new Text(users[index]['jenis_dana'] ?? ''),
+                            leading: new Icon(Icons.widgets),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('Tanggal'),
+                                    Text(
+                                      users[index]['tanggal'] ?? '',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('Nominal'),
+                                    Text(
+                                      formatter.format(int.parse(
+                                              users[index]['nominal'])) ??
+                                          '',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      users[index]['keterangan'],
+                                      style:
+                                          TextStyle(color: Colors.black) ?? '',
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  : new Container();
+        }
       },
+      controller: _sc,
+    );
+  }
+
+  void _getMoreData(int index, String id) async {
+    if (!isLoading) {
+      setState(() {
+        isLoading = true;
+      });
+
+      var url = BaseUrl.getHistoryPemasukan +
+          "user_id=" +
+          idUsers +
+          "&limit=10&page=" +
+          index.toString();
+
+      print(url);
+
+      final response = await dio.get(url);
+      final data = jsonDecode(response.data);
+
+      List tList = new List();
+
+      for (int i = 0; i < data['results'].length; i++) {
+        tList.add(data['results'][i]);
+      }
+
+      setState(() {
+        isLoading = false;
+        users.addAll(tList);
+        page++;
+      });
+    }
+  }
+
+  Widget _buildProgressIndicator() {
+    return new Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: new Center(
+        child: new Opacity(
+          opacity: isLoading ? 1.0 : 00,
+          child: new CircularProgressIndicator(),
+        ),
+      ),
     );
   }
 }

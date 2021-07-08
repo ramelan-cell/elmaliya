@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:elmaliya/model/api.dart';
 import 'package:elmaliya/view/daftar.dart';
 import 'package:elmaliya/view/home.dart';
+import 'package:elmaliya/view/lupa_password.dart';
 import 'package:elmaliya/view/mainmenu.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -293,6 +294,28 @@ class _LoginState extends State<Login> {
                                   ),
                                 ],
                               ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        new LupaPassword()));
+                              },
+                              child: Center(
+                                child: Text(
+                                  "Lupa Password",
+                                  style: TextStyle(
+                                      color: Colors.orange,
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
                             ),
                             GestureDetector(
                                 key: Key("loginButton"),

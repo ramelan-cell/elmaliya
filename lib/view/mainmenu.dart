@@ -3,6 +3,7 @@ import 'package:elmaliya/view/about.dart';
 import 'package:elmaliya/view/home.dart';
 import 'package:elmaliya/view/accountbalance.dart';
 import 'package:elmaliya/view/chart.dart';
+import 'package:elmaliya/view/password.dart';
 import 'package:elmaliya/view/piechart.dart';
 import 'package:elmaliya/view/statistic.dart';
 import 'package:http/http.dart' as http;
@@ -89,7 +90,7 @@ class _MainMenuState extends State<MainMenu> {
                 height: 30,
               ),
               SizedBox(
-                width: 20.0,
+                width: 10.0,
               ),
               new Text(
                 "Buku Kuangan Digital",

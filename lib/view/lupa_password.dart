@@ -1,22 +1,20 @@
 import 'dart:convert';
 import 'package:elmaliya/model/api.dart';
 import 'package:elmaliya/view/login.dart';
-import 'package:elmaliya/view/mainmenu.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class Daftar extends StatefulWidget {
+class LupaPassword extends StatefulWidget {
+  static final String TAG = '/lupapassword';
   @override
-  _DaftarState createState() => _DaftarState();
+  _LupaPasswordState createState() => _LupaPasswordState();
 }
 
-enum DaftarStatus { notSignIn, signIn }
+enum LupaPasswordStatus { notSignIn, signIn }
 
-class _DaftarState extends State<Daftar> {
-  DaftarStatus _DaftarStatus = DaftarStatus.notSignIn;
-  String username, password, jabatan, nama_lengkap, no_hp, alamat, email;
+class _LupaPasswordState extends State<LupaPassword> {
+  LupaPasswordStatus _LupaPasswordStatus = LupaPasswordStatus.notSignIn;
+  String email;
   final _key = new GlobalKey<FormState>();
   String msg = "";
   bool _secureText = true;
@@ -39,7 +37,7 @@ class _DaftarState extends State<Daftar> {
           _apiCall = true;
         });
       }
-      daftar();
+      lupaPassword();
     }
   }
 
@@ -56,16 +54,11 @@ class _DaftarState extends State<Daftar> {
     ));
   }
 
-  daftar() async {
-    final response = await http.post(BaseUrl.daftar, body: {
-      "username": username,
-      "password": password,
-      "no_hp": no_hp,
-      "nama_lengkap": nama_lengkap,
-      "alamat": alamat,
-      "email": email
-    });
+  lupaPassword() async {
+    final response =
+        await http.post(BaseUrl.lupaPassword, body: {"email": email});
     final data = jsonDecode(response.body);
+    // print(data);
     int value = data['value'];
     String pesan = data['message'];
 
@@ -94,7 +87,7 @@ class _DaftarState extends State<Daftar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(title: new Text("Daftar"),),
+      // appBar: AppBar(title: new Text("LupaPassword"),),
       key: _scaffoldState,
       body: Form(
         key: _key,
@@ -125,15 +118,15 @@ class _DaftarState extends State<Daftar> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Daftar Account",
+                                  "Lupa password",
                                   style: TextStyle(
-                                      color: Colors.white, fontSize: 30),
+                                      color: Colors.white, fontSize: 20),
                                 ),
                                 SizedBox(
                                   height: 10,
                                 ),
                                 Text(
-                                  "Buku Kuangan Digital",
+                                  "Sistem Elmaliya",
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 15),
                                 )
@@ -194,112 +187,14 @@ class _DaftarState extends State<Daftar> {
                                 child: TextFormField(
                                   validator: (e) {
                                     if (e.isEmpty) {
-                                      return "Please insert nama lengkap";
-                                    }
-                                  },
-                                  onSaved: (e) => nama_lengkap = e,
-                                  decoration: InputDecoration(
-                                      hintText: "Nama lengkap",
-                                      hintStyle: TextStyle(
-                                          color: Colors.black, fontSize: 12.0)),
-                                ),
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                    border: Border(
-                                        bottom: BorderSide(
-                                            color: Colors.green[200]))),
-                                child: TextFormField(
-                                  validator: (e) {
-                                    if (e.isEmpty) {
-                                      return "Please insert no handphone";
-                                    }
-                                  },
-                                  onSaved: (e) => no_hp = e,
-                                  decoration: InputDecoration(
-                                      hintText: "No HP",
-                                      hintStyle: TextStyle(
-                                          color: Colors.black, fontSize: 12.0)),
-                                ),
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                    border: Border(
-                                        bottom: BorderSide(
-                                            color: Colors.green[200]))),
-                                child: TextFormField(
-                                  validator: (e) {
-                                    if (e.isEmpty) {
-                                      return "Please insert alamat";
-                                    }
-                                  },
-                                  onSaved: (e) => alamat = e,
-                                  decoration: InputDecoration(
-                                      hintText: "Alamat lengkap",
-                                      hintStyle: TextStyle(
-                                          color: Colors.black, fontSize: 12.0)),
-                                ),
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                    border: Border(
-                                        bottom: BorderSide(
-                                            color: Colors.green[200]))),
-                                child: TextFormField(
-                                  validator: (e) {
-                                    if (e.isEmpty) {
-                                      return "Please insert email";
+                                      return "Please insert  email";
                                     }
                                   },
                                   onSaved: (e) => email = e,
                                   decoration: InputDecoration(
-                                      hintText: "Email anda",
+                                      hintText: "Masukan email anda",
                                       hintStyle: TextStyle(
                                           color: Colors.black, fontSize: 12.0)),
-                                ),
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                    border: Border(
-                                        bottom: BorderSide(
-                                            color: Colors.green[200]))),
-                                child: TextFormField(
-                                  validator: (e) {
-                                    if (e.isEmpty) {
-                                      return "Please insert username";
-                                    }
-                                  },
-                                  onSaved: (e) => username = e,
-                                  decoration: InputDecoration(
-                                      hintText: "Username",
-                                      hintStyle: TextStyle(
-                                          color: Colors.black, fontSize: 12.0)),
-                                ),
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                    border: Border(
-                                        bottom: BorderSide(
-                                            color: Colors.green[200]))),
-                                child: TextFormField(
-                                  obscureText: _secureText,
-                                  validator: (e) {
-                                    if (e.isEmpty) {
-                                      return "Please insert password";
-                                    }
-                                  },
-                                  onSaved: (e) => password = e,
-                                  decoration: InputDecoration(
-                                    hintText: "Password",
-                                    hintStyle: TextStyle(
-                                        color: Colors.black, fontSize: 12.0),
-                                    suffixIcon: IconButton(
-                                      onPressed: showHide,
-                                      icon: Icon(_secureText
-                                          ? Icons.visibility_off
-                                          : Icons.visibility),
-                                    ),
-                                  ),
                                 ),
                               ),
                             ],
@@ -326,7 +221,7 @@ class _DaftarState extends State<Daftar> {
                                                 Colors.white),
                                       )
                                     : Text(
-                                        "Daftar Akun",
+                                        "Submit",
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 15,
@@ -348,7 +243,7 @@ class _DaftarState extends State<Daftar> {
                               margin: EdgeInsets.symmetric(horizontal: 50),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(50),
-                                  color: Colors.blueGrey),
+                                  color: Colors.greenAccent),
                               child: Center(
                                 child: Text(
                                   "Kembali",
